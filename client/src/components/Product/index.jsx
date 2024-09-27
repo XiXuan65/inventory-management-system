@@ -202,7 +202,7 @@ const Product = () => {
                     className={styles.search_input}
                 />
                    <div className={styles.file_upload_container}>
-                        <label className={styles.file_label}>Add Product by File:</label>
+                        <label className={styles.file_label}>Add Product by TxtFile:</label>
                         <input
                             type="file"
                             accept=".txt"
