@@ -2,7 +2,6 @@ const router = require("express").Router();
 const { Product, validateProduct } = require("../models/product");
 
 router.post('/', async (req, res) => {
-    // Validate product details
     const { error } = validateProduct(req.body);
     if (error) return res.status(400).send({ message: error.details[0].message });
 
@@ -13,7 +12,6 @@ router.post('/', async (req, res) => {
             return res.status(409).send({ message: 'Product with the same name already exists.' });
         }
 
-        // Create and save the new product
         const product = new Product(req.body);
         await product.save();
         res.status(201).send({ product, message: 'Product added successfully!' });
@@ -98,7 +96,6 @@ router.post('/upload', async (req, res) => {
             continue;
         }
 
-        // Create new product
         const product = new Product({ name, quantity, price });
         try {
             await product.save();

@@ -11,7 +11,7 @@ const SalesOrder = () => {
     const [sellingPrice, setSellingPrice] = useState(0);
     const [showModal, setShowModal] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-    const [successMessage, setSuccessMessage] = useState(""); // Add success message state
+    const [successMessage, setSuccessMessage] = useState(""); 
 
     useEffect(() => {
         fetchProducts();
@@ -57,15 +57,13 @@ const SalesOrder = () => {
             setShowModal(false);
             resetForm();
             setErrorMessage(""); 
-            setSuccessMessage("Sales order added successfully!"); // Set success message
+            setSuccessMessage("Sales order added successfully!"); 
 
-            // Clear the success message after 3 seconds
             setTimeout(() => setSuccessMessage(""), 3000);
         } catch (error) {
             console.error("Error creating sales order:", error);
             setErrorMessage(error.response?.data?.message || "An error occurred while creating the sales order.");
 
-            // Clear the error message after 3 seconds
             setTimeout(() => setErrorMessage(""), 3000);
         }
     };
@@ -84,8 +82,6 @@ const SalesOrder = () => {
                 </Link>
             </div>
             <h1>Sales Order Management</h1>
-
-            {/* Display Success and Error Messages */}
             {successMessage && <div className={styles.success_message}>{successMessage}</div>}
             {errorMessage && <div className={styles.error_message}>{errorMessage}</div>}
 

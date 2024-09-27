@@ -35,21 +35,20 @@ const Product = () => {
         const file = event.target.files[0];
         if (!file) return;
     
-        // Read the file content
         const reader = new FileReader();
         reader.onload = async (e) => {
             const content = e.target.result;
     
             try {
-                // Send file content to the server for processing
+              
                 const { data } = await axios.post('http://localhost:8080/api/products/upload', { content });
                 showSuccess(data.message);
-                setProducts([...products, ...data.newProducts]); // Update products list with the newly added products
+                setProducts([...products, ...data.newProducts]); 
             } catch (error) {
                 showError(error.response ? error.response.data.message : "Failed to process file.");
             } finally {
                 fetchProducts();
-                // Reset the file input
+              
                 if (fileInputRef.current) {
                     fileInputRef.current.value = "";
                 }
@@ -88,7 +87,7 @@ const Product = () => {
             setProducts([...products, data.product]);
             resetForm();
             setShowModal(false);
-            showSuccess(data.message); // Show success message from the server response
+            showSuccess(data.message); 
         } catch (error) {
             if (error.response && error.response.status === 409) {
                 showError("Product with the same name already exists.");
@@ -194,7 +193,15 @@ const Product = () => {
             )}
 
             <div className={styles.actions_container}>
-                <div className={styles.file_upload_container}>
+             
+                <input
+                    type="text"
+                    placeholder="Search Product"
+                    value={search}
+                    onChange={handleSearchChange}
+                    className={styles.search_input}
+                />
+                   <div className={styles.file_upload_container}>
                         <label className={styles.file_label}>Add Product by File:</label>
                         <input
                             type="file"
@@ -204,13 +211,6 @@ const Product = () => {
                             className={styles.file_input}
                         />
                 </div>
-                <input
-                    type="text"
-                    placeholder="Search Product"
-                    value={search}
-                    onChange={handleSearchChange}
-                    className={styles.search_input}
-                />
                 <button onClick={openAddModal} className={styles.add_btn}>Add Product</button>
             </div>
 
